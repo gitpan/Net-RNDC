@@ -1,6 +1,6 @@
 package Net::RNDC;
 {
-  $Net::RNDC::VERSION = '0.001';
+  $Net::RNDC::VERSION = '0.002';
 }
 # ABSTRACT: Speak the BIND RNDC protocol
 
@@ -75,6 +75,8 @@ sub _check_do_args {
 sub do {
 	my ($self, $command, %override) = @_;
 
+	$self->{response} = $self->{error} = '';
+
 	my $host = $self->{host};
 	my $port = $self->{port};
 	my $key  = $self->{key};
@@ -107,8 +109,6 @@ sub do {
 
 		return 0;
 	}
-
-	$self->{response} = $self->{error} = '';
 
 	# Net::RNDC::Session does all of the work
 	my $sess = Net::RNDC::Session->new(
@@ -180,6 +180,10 @@ __END__;
 
 Net::RNDC - Speak the BIND Remote Name Daemon Control (RNDC) V1 protocol
 
+=head1 VERSION
+
+version 0.002
+
 =head1 SYNOPSIS
 
 Simple synchronous command/response:
@@ -205,7 +209,7 @@ All arguments to new() are allowed in do:
   my $key = 'abcd';
 
   for my $s (qw(127.0.0.1 127.0.0.2)) {
-    if (!$rndc->do(key => $key, server => $s)) {
+    if (!$rndc->do('status', key => $key, host => $s)) {
       my $err = $rndc->error;
     } else {
       my $resp = $rndc->response;
@@ -234,7 +238,8 @@ B<key> - The Base64 encoded HMAC-MD5 private key to use.
 
 =item *
 
-B<host> - The hostname/IP of the remote server to connect to.
+B<host> - The hostname/IP of the remote server to connect to. If 
+L<IO::Socket::INET6> is installed, IPv6 support will be enabled.
 
 =item *
 
@@ -250,7 +255,7 @@ B<port> - The port to connect to. Defaults to I<953>.
 
   $rndc->do($commands, %args);
 
-Connects to the remote nameserver configured in L<new()> or passed in to  
+Connects to the remote nameserver configured in L</new> or passed in to  
 B<%args> and sends the specified command.
 
 Returns 1 on success, 0 on failure.
@@ -265,21 +270,21 @@ B<$command> - The RNDC command to run. For example: C<status>.
 
 =back
 
-Optional Arguments - See L<new()> above.
+Optional Arguments - See L</new> above.
 
 =head3 error
 
   $rndc->error;
 
-Returns the last string error from a call to L<do()>, if any. Only set if 
-L<do()> returns 0.
+Returns the last string error from a call to L</do>, if any. Only set if 
+L</do> returns 0.
 
 =head3 response
 
   $rndc->response;
 
-Returns the last string response from a call to L<do()>, if any. Only set if 
-L<do()> returns 1.
+Returns the last string response from a call to L</do>, if any. Only set if 
+L</do> returns 1.
 
 =head1 SEE ALSO
 

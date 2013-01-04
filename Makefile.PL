@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker 6.30;
 
 my %WriteMakefileArgs = (
   "ABSTRACT" => "Speak the BIND RNDC protocol",
-  "AUTHOR" => "Matthew Horsfall <WolfSage\@gmail.com>",
+  "AUTHOR" => "Matthew Horsfall (alh) <WolfSage\@gmail.com>",
   "BUILD_REQUIRES" => {
     "Test::Exception" => 0,
     "Test::More" => "0.88"
@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
     "MIME::Base64" => 0,
     "Try::Tiny" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }

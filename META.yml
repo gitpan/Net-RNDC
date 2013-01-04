@@ -1,7 +1,7 @@
 ---
 abstract: 'Speak the BIND RNDC protocol'
 author:
-  - 'Matthew Horsfall <WolfSage@gmail.com>'
+  - 'Matthew Horsfall (alh) <WolfSage@gmail.com>'
 build_requires:
   Test::Exception: 0
   Test::More: 0.88
@@ -23,4 +23,4 @@ requires:
 resources:
   homepage: https://github.com/wolfsage/Net-RNDC
   repository: git://github.com/wolfsage/Net-RNDC.git
-version: 0.001
+version: 0.002

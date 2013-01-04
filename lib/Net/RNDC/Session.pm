@@ -1,6 +1,6 @@
 package Net::RNDC::Session;
 {
-  $Net::RNDC::Session::VERSION = '0.001';
+  $Net::RNDC::Session::VERSION = '0.002';
 }
 
 use strict;
@@ -226,6 +226,11 @@ sub _got_read {
 		} else {
 			my $nonce = $self->{_nonce_data};
 
+			# TODO: Add time/expiry checking
+			# Invalid: (_tim + clockskew < now || _tim - clockskew > now)
+			# Invalid: now > exp
+			# Also check serial?
+
 			unless ($packet->{data}->{_ctrl}{_nonce}) {
 				$self->_state('want_error');
 
@@ -285,6 +290,10 @@ __END__
 
 Net::RNDC::Session - Helper package to manage the RNDC 4-packet session
 
+=head1 VERSION
+
+version 0.002
+
 =head1 SYNOPSIS
 
 To use synchronously as a client:
@@ -331,7 +340,7 @@ TBD
 
 This package is intended to provide the logic for an RNDC client session which 
 can used  to run a single command against a remote server and get a response.
-See L<SESSION> below for a description of the RNDC client session logic.
+See L</SESSION> below for a description of the RNDC client session logic.
 
 This package also supports running sessions as an RNDC server.
 
@@ -341,9 +350,10 @@ There is no socket logic here, that must be provided to this class through the
 constructor in the various C<want_*> methods. This allows for 
 synchronous/asynchronous use with a little work.
 
-This package does generate and parse L<Net::RNDC::Packet>s, but the L<want_read> 
-and L<want_write> methods allow you to peak at this data before it's parsed and 
-before it's sent to the remote end to allow slightly more fine-grained control.
+This package does generate and parse L<Net::RNDC::Packet>s, but the 
+L</want_read> and L</want_write> methods allow you to peak at this data before 
+it's parsed and before it's sent to the remote end to allow slightly more 
+fine-grained control.
 
 To manage the entire process yourself, use L<Net::RNDC::Packet>.
 
@@ -376,7 +386,7 @@ copied into the next request.
   CLIENT->send(<command packet>)
 
 The nonce should be included in the command packet in the '_ctrl' section, and 
-the command to be run on the remote section should be in the 'type' paramater of 
+the command to be run on the remote section should be in the 'type' parameter of 
 the '_data' section.
 
 =item 4

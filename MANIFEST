@@ -1,3 +1,4 @@
+Changes
 LICENSE
 MANIFEST
 META.yml
@@ -12,3 +13,5 @@ scripts/rndc.pl
 t/00_rndc.t
 t/01_packet.t
 t/02_session.t
+t/release-pod-spell.t
+t/release-pod-syntax.t
