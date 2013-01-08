@@ -1,6 +1,6 @@
 package Net::RNDC::Exception;
 {
-  $Net::RNDC::Exception::VERSION = '0.002';
+  $Net::RNDC::Exception::VERSION = '0.003';
 }
 
 use strict;
@@ -35,7 +35,7 @@ Net::RNDC::Exception - Internal exception class
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

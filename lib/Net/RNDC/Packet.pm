@@ -1,6 +1,6 @@
 package Net::RNDC::Packet;
 {
-  $Net::RNDC::Packet::VERSION = '0.002';
+  $Net::RNDC::Packet::VERSION = '0.003';
 }
 
 use strict;
@@ -241,9 +241,13 @@ sub _binary_fromwire {
 sub _binary_towire {
 	my ($data) = @_;
 
+	if (!defined $data) {
+		$data = 'null';
+	}
+
 	return pack('c', ISCCC_CCMSGTYPE_BINARYDATA)
-	     . pack('N', length($data // 'null'))
-	     . ($data // 'null');
+	     . pack('N', length($data))
+	     . ($data);
 }
 
 # Take a table from binary format and return a hashref
@@ -401,7 +405,7 @@ Net::RNDC::Packet - RNDC Protocol V1 Packet Parsing and Generation
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

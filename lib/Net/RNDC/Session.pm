@@ -1,6 +1,6 @@
 package Net::RNDC::Session;
 {
-  $Net::RNDC::Session::VERSION = '0.002';
+  $Net::RNDC::Session::VERSION = '0.003';
 }
 
 use strict;
@@ -292,7 +292,7 @@ Net::RNDC::Session - Helper package to manage the RNDC 4-packet session
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

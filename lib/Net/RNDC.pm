@@ -1,6 +1,6 @@
 package Net::RNDC;
 {
-  $Net::RNDC::VERSION = '0.002';
+  $Net::RNDC::VERSION = '0.003';
 }
 # ABSTRACT: Speak the BIND RNDC protocol
 
@@ -182,7 +182,7 @@ Net::RNDC - Speak the BIND Remote Name Daemon Control (RNDC) V1 protocol
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
